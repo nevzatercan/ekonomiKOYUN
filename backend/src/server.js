@@ -1,6 +1,7 @@
 import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
+import searchRouter from './routes/search.js';
 import Database from 'better-sqlite3';
 import { fileURLToPath } from 'url';
 import { dirname, join } from 'path';
@@ -29,6 +30,8 @@ try {
   console.error('[DB] SQLite başlatılamadı:', err.message);
   process.exit(1);
 }
+
+app.use('/api/search', searchRouter);
 
 // health-check endpoint — deployment ortamında "uygulama canlı mı?" kontrolü için
 app.get('/health', (_req, res) => {

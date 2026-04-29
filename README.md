@@ -56,6 +56,18 @@ npm run dev
 - **Faz 2:** Diğer mağazalar + tüm abonelik servisleri + akıllı karşılaştırma
 - **Faz 3:** Auth, e-mail bildirimleri, sosyal özellikler, mobil
 
+## 📡 Veri Kaynakları
+
+ekonomiKOYUN yalnızca **halka açık** veri kaynaklarını kullanır:
+
+| Platform | Yöntem | Not |
+|----------|--------|-----|
+| Steam | `store.steampowered.com/api/` | API key gerektirmez; Steam'in kendi mağaza arayüzü tarafından da kullanılır |
+| Epic, GOG, diğerleri | Resmi/topluluk API'leri *(Faz 2)* | |
+| Game Pass, PSN Plus | Topluluk JSON kaynakları *(Faz 2)* | |
+
+Bu proje oyun **satmaz, dağıtmaz** — yalnızca halka açık fiyat bilgisini gösterir ve mağaza sayfalarına yönlendirir.
+
 ## 📜 Lisans
 
 MIT — Bu proje öğrenme amaçlı geliştirilmektedir.
