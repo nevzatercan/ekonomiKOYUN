@@ -92,3 +92,31 @@ if (new.target === StoreAdapter) {
 
 ### 13. `.env.example` neden commit'lenir, `.env` neden commit'lenmez?
 `.env` dosyası **gerçek API anahtarlarını, şifreleri** barındırır — git geçmişine girerse sızdırmış olursun. `.env.example` ise sadece hangi değişkenlerin gerektiğini gösteren şablon — sır yok, commit'lenmesi lazım ki başka geliştirici (ya da gelecekteki sen) ne ayarlaması gerektiğini bilsin.
+
+---
+
+## 🎮 Steam API
+
+### 14. Steam'in Türkiye'deki para birimi durumu (2022+)
+Steam, 2022 sonrasında Türkiye'de TL desteğini kesti. Artık TR hesaplar USD ile ödeme yapıyor. **Ama bu fiyatlar küresel USD fiyatından farklı** — TR bölgesi için ayrı (genellikle daha düşük) bir USD fiyatı var. `cc=tr` parametresiyle bu bölgesel fiyatı çekebilirsin.
+
+### 15. Steam API'sinde hangi endpoint'ler key gerektirmez?
+Çoğu mağaza API'si key ister, Steam istemez (mağaza tarafı için):
+- `steamcommunity.com/actions/SearchApps/{query}` → arama (appid + isim + logo)
+- `store.steampowered.com/api/appdetails?appids={id}&cc=tr` → oyun detayı + fiyat
+- `store.steampowered.com/api/featured?cc=tr` → öne çıkan/indirimli oyunlar
+
+Key yalnızca kullanıcı verisi için gerekli (Steam kütüphanesi, başarımlar vb.).
+
+### 16. Steam fiyatları neden 100'e bölünüyor?
+Steam API fiyatları **kuruş/cent cinsinden** döndürür. `final: 599` aslında `$5.99` demek. Her zaman 100'e böl: `price = data.final / 100`.
+
+### 17. Rate limiting ve `sleep()` neden gerekli?
+API'lere çok hızlı istek atarsan IP'n engellenir. Steam bu konuda katı. İstekler arasına kısa bir bekleme (`setTimeout 300ms`) koymak hem nazik davranmak hem de banlanmamak demek. Bu projenin scraping stratejisinin temelidir.
+
+### 18. `AbortSignal.timeout()` ile istek zaman aşımı
+Bir API cevap vermezse `fetch()` sonsuza kadar bekleyebilir. `AbortSignal.timeout(5000)` ile 5 saniye sonra otomatik iptal:
+```js
+const res = await fetch(url, { signal: AbortSignal.timeout(5000) });
+```
+Node 18+ ve modern tarayıcılarda yerel olarak desteklenir, harici kütüphane gerekmez.
