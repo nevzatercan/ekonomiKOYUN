@@ -68,22 +68,27 @@ export class StoreAdapter {
  * @property {string} externalId   - Mağazadaki oyun ID'si
  * @property {string} title        - Oyun adı
  * @property {string} [coverUrl]   - Kapak resmi URL'i
- * @property {number} [priceTry]   - Anlık TL fiyatı (varsa)
  * @property {string} storeUrl     - Mağaza sayfası URL'i
  *
  * @typedef {Object} PriceResult
  * @property {string} externalId
- * @property {number} priceTry            - Güncel TL fiyatı
- * @property {number} [originalPriceTry]  - İndirimsiz TL fiyatı
+ * @property {number} price               - Güncel fiyat (platform para biriminde)
+ * @property {number} [originalPrice]     - İndirimsiz fiyat
  * @property {number} [discountPercent]   - İndirim yüzdesi (0-100)
+ * @property {string} currency            - Para birimi: 'TRY', 'USD' vb.
+ * @property {string} priceFormatted      - Gösterime hazır: '₺149,00' veya '$14.99'
+ * @property {string} [originalPriceFormatted]
+ * @property {string} region              - Bölge kodu: 'tr', 'us' vb.
  * @property {Date}   recordedAt
  *
  * @typedef {Object} DealResult
  * @property {string} externalId
  * @property {string} title
- * @property {number} priceTry
- * @property {number} originalPriceTry
+ * @property {number} price
+ * @property {number} originalPrice
  * @property {number} discountPercent
+ * @property {string} currency
+ * @property {string} priceFormatted
  * @property {string} storeUrl
  * @property {Date}   [dealEndsAt]
  */
