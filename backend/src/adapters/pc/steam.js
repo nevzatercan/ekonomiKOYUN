@@ -17,7 +17,7 @@ export class SteamAdapter extends StoreAdapter {
     this.delayMs = 300; // Steam'e nazik ol — istek aralarında bekle
   }
 
-  async searchGame(query, limit = 10) {
+  async searchGame(query, limit = 5) {
     const url = `${SEARCH_URL}/${encodeURIComponent(query)}`;
     const res = await fetch(url);
     if (!res.ok) throw new Error(`Steam arama başarısız: HTTP ${res.status}`);
@@ -74,7 +74,7 @@ export class SteamAdapter extends StoreAdapter {
     };
   }
 
-  async getCurrentDeals(limit = 10) {
+  async getCurrentDeals(limit = 5) {
     const url = `${FEATURED_URL}/?cc=${this.region}`;
     const res = await fetch(url);
     if (!res.ok) throw new Error(`Steam öne çıkanlar isteği başarısız: HTTP ${res.status}`);
